@@ -117,8 +117,8 @@ def get_cluster_reference_data(refdir, reference):
 
 def get_chromosomes(reference):
     if reference == 'grch37':
-        return [str(val) for val in range(1, 23)] + ['X', 'Y']
+        return ["chr"+str(val) for val in range(1, 23)] + ['X', 'Y']
     elif reference == 'mm10':
-        return [str(val) for val in range(1, 20)] + ['X', 'Y']
+        return ["chr"+str(val) for val in range(1, 20)] + ['X', 'Y']
     else:
         raise Exception("unknown reference genome type {}".format(reference))
