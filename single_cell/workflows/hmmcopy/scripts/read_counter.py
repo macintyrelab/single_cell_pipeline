@@ -83,7 +83,7 @@ class ReadCounter(object):
         :rtype dictionary
         """
 
-        names = self.bam.references
+        names = correct_chromosome_names(self.bam.references)
         lengths = self.bam.lengths
         return {name: length for name, length in zip(names, lengths)}
 
