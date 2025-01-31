@@ -11,10 +11,14 @@ import numpy as np
 import pandas as pd
 import pysam
 
-def correct_chromosome_names(chromosomes):
-    if chromosomes[0] == "chr1":
-        chromosomes = [chrom[3:] for chrom in chromosomes]
-    return tuple(chromosomes)
+def ref_to_bam_name(chromosome):
+    return "chr"+str(chromosome)
+def ref_to_bam_names(chromosomes):
+    return tuple([ref_to_bam_name(chromosome) for chromosome in chromosomes])
+def bam_to_ref_name(chromosome):
+    return chromosome[3:]
+def bam_to_ref_names(chromosomes):
+    return tuple([bam_to_ref_name(chromosome) for chromosome in chromosomes])
 
 class ReadCounter(object):
     """
@@ -34,9 +38,9 @@ class ReadCounter(object):
         self.window_size = window_size
 
         if chromosomes:
-            self.chromosomes = correct_chromosome_names(chromosomes)
+            self.chromosomes = chromosomes
         else:
-            self.chromosomes = correct_chromosome_names(self.__get_chr_names())
+            self.chromosomes = self.__get_chr_names()
 
         self.bam = self.__get_bam_reader()
         self.chr_lengths = self.__get_chr_lengths()
@@ -82,7 +86,7 @@ class ReadCounter(object):
         :rtype dictionary
         """
 
-        names = correct_chromosome_names(self.bam.references)
+        names = bam_to_ref_names(self.bam.references)
         lengths = self.bam.lengths
         return {name: length for name, length in zip(names, lengths)}
 
@@ -97,7 +101,7 @@ class ReadCounter(object):
         :returns list of chromosome names
         :rtype list
         """
-        return self.bam.references
+        return bam_to_ref_names(self.bam.references)
 
     def __fetch(self, chrom, start, end):
         """returns iterator over reads in the specified region
@@ -106,7 +110,7 @@ class ReadCounter(object):
         :param end: bin end pos (int)
         :returns iterator over reads
         """
-        return self.bam.fetch(chrom, start, end)
+        return self.bam.fetch(ref_to_bam_name(chrom), start, end)
 
     def filter(self, pileupobj, chrom_excluded=None):
         """remove low mapping quality reads and duplicates
