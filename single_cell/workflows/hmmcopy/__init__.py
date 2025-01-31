@@ -17,7 +17,7 @@ def create_hmmcopy_workflow(
 ):
     chromosomes = hmmparams["chromosomes"]
 
-    ctx = {'mem': 7, 'ncpus': 1}
+    ctx = {'mem': 7, 'ncpus': 15}
 
     workflow = pypeliner.workflow.Workflow(ctx=ctx)
 
@@ -32,7 +32,7 @@ def create_hmmcopy_workflow(
 
     workflow.transform(
         name='run_hmmcopy',
-        ctx={'mem': hmmparams['memory']['med'], 'ncpus': 1},
+        ctx={'mem': hmmparams['memory']['med'], 'ncpus': 15},
         func="single_cell.workflows.hmmcopy.tasks.run_hmmcopy",
         axes=('cell_id',),
         args=(
@@ -50,7 +50,7 @@ def create_hmmcopy_workflow(
 
     workflow.transform(
         name='merge_reads',
-        ctx={'mem': hmmparams['memory']['med'], 'ncpus': 1},
+        ctx={'mem': hmmparams['memory']['med'], 'ncpus': 15},
         func="single_cell.workflows.hmmcopy.tasks.concatenate_csv",
         args=(
             mgd.TempInputFile('reads.csv.gz', 'cell_id', axes_origin=[], extensions=['.yaml']),
@@ -60,7 +60,7 @@ def create_hmmcopy_workflow(
 
     workflow.transform(
         name='add_mappability_bool',
-        ctx={'mem': hmmparams['memory']['med'], 'ncpus': 1},
+        ctx={'mem': hmmparams['memory']['med'], 'ncpus': 15},
         func="single_cell.workflows.hmmcopy.tasks.get_mappability_col",
         args=(
             mgd.TempInputFile('reads_merged.csv.gz', extensions=['.yaml']),
@@ -70,7 +70,7 @@ def create_hmmcopy_workflow(
 
     workflow.transform(
         name='merge_segs',
-        ctx={'mem': hmmparams['memory']['med'], 'ncpus': 1},
+        ctx={'mem': hmmparams['memory']['med'], 'ncpus': 15},
         func="single_cell.workflows.hmmcopy.tasks.concatenate_csv",
         args=(
             mgd.TempInputFile('segs.csv.gz', 'cell_id', axes_origin=[], extensions=['.yaml']),
@@ -80,7 +80,7 @@ def create_hmmcopy_workflow(
 
     workflow.transform(
         name='merge_metrics',
-        ctx={'mem': hmmparams['memory']['med'], 'ncpus': 1},
+        ctx={'mem': hmmparams['memory']['med'], 'ncpus': 15},
         func="single_cell.workflows.hmmcopy.tasks.concatenate_csv",
         args=(
             mgd.TempInputFile('hmm_metrics.csv.gz', 'cell_id', axes_origin=[], extensions=['.yaml']),
@@ -90,7 +90,7 @@ def create_hmmcopy_workflow(
 
     workflow.transform(
         name='merge_params',
-        ctx={'mem': hmmparams['memory']['med'], 'ncpus': 1},
+        ctx={'mem': hmmparams['memory']['med'], 'ncpus': 15},
         func="single_cell.workflows.hmmcopy.tasks.concatenate_csv",
         args=(
             mgd.TempInputFile('params.csv.gz', 'cell_id', axes_origin=[], extensions=['.yaml']),
@@ -100,7 +100,7 @@ def create_hmmcopy_workflow(
 
     workflow.transform(
         name='get_max_cn',
-        ctx={'mem': hmmparams['memory']['med'], 'ncpus': 1},
+        ctx={'mem': hmmparams['memory']['med'], 'ncpus': 15},
         func="single_cell.workflows.hmmcopy.tasks.get_max_cn",
         ret=mgd.TempOutputObj('max_cn'),
         args=(
@@ -110,7 +110,7 @@ def create_hmmcopy_workflow(
 
     workflow.transform(
         name='hmmcopy_plots',
-        ctx={'mem': hmmparams['memory']['med'], 'ncpus': 1},
+        ctx={'mem': hmmparams['memory']['med'], 'ncpus': 15},
         func="single_cell.workflows.hmmcopy.tasks.plot_hmmcopy",
         axes=('cell_id',),
         args=(
@@ -132,7 +132,7 @@ def create_hmmcopy_workflow(
 
     workflow.transform(
         name='annotate_metrics_with_info_and_clustering',
-        ctx={'mem': hmmparams['memory']['med'], 'ncpus': 1},
+        ctx={'mem': hmmparams['memory']['med'], 'ncpus': 15},
         func="single_cell.workflows.hmmcopy.tasks.add_clustering_order",
         args=(
             mgd.InputFile(reads, extensions=['.yaml']),
@@ -147,7 +147,7 @@ def create_hmmcopy_workflow(
 
     workflow.transform(
         name='merge_hmm_copy_plots',
-        ctx={'mem': hmmparams['memory']['med'], 'ncpus': 1},
+        ctx={'mem': hmmparams['memory']['med'], 'ncpus': 15},
         func="single_cell.workflows.hmmcopy.tasks.merge_pdf",
         args=(
             [
@@ -167,7 +167,7 @@ def create_hmmcopy_workflow(
 
     workflow.transform(
         name='create_igv_seg',
-        ctx={'mem': hmmparams['memory']['med'], 'ncpus': 1},
+        ctx={'mem': hmmparams['memory']['med'], 'ncpus': 15},
         func="single_cell.workflows.hmmcopy.tasks.create_igv_seg",
         args=(
             mgd.InputFile(segs, extensions=['.yaml']),
@@ -179,7 +179,7 @@ def create_hmmcopy_workflow(
 
     workflow.transform(
         name='plot_metrics',
-        ctx={'mem': hmmparams['memory']['med'], 'ncpus': 1},
+        ctx={'mem': hmmparams['memory']['med'], 'ncpus': 15},
         func="single_cell.workflows.hmmcopy.tasks.plot_metrics",
         args=(
             mgd.InputFile(metrics, extensions=['.yaml']),
@@ -190,7 +190,7 @@ def create_hmmcopy_workflow(
 
     workflow.transform(
         name='plot_kernel_density',
-        ctx={'mem': hmmparams['memory']['med'], 'ncpus': 1},
+        ctx={'mem': hmmparams['memory']['med'], 'ncpus': 15},
         func="single_cell.workflows.hmmcopy.tasks.plot_kernel_density",
         args=(
             mgd.InputFile(metrics, extensions=['.yaml']),
@@ -203,7 +203,7 @@ def create_hmmcopy_workflow(
 
     workflow.transform(
         name='plot_heatmap_ec',
-        ctx={'mem': hmmparams['memory']['med'], 'ncpus': 1},
+        ctx={'mem': hmmparams['memory']['med'], 'ncpus': 15},
         func="single_cell.workflows.hmmcopy.tasks.plot_pcolor",
         args=(
             mgd.InputFile(reads, extensions=['.yaml']),
@@ -224,7 +224,7 @@ def create_hmmcopy_workflow(
 
     workflow.transform(
         name='merge_hmmcopy_data_tars',
-        ctx={'mem': hmmparams['memory']['med'], 'ncpus': 1},
+        ctx={'mem': hmmparams['memory']['med'], 'ncpus': 15},
         func="single_cell.workflows.hmmcopy.tasks.create_hmmcopy_data_tar",
         args=(
             mgd.TempInputFile('hmm_data.tar.gz', 'cell_id', axes_origin=[]),
