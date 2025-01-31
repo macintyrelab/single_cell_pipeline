@@ -13,8 +13,8 @@ import pysam
 
 def correct_chromosome_names(chromosomes):
     if chromosomes[0] == "chr1":
-        for chrom in chromosomes:
-            chrom = chrom[3:]
+        for i in range(len(chromosomes)):
+            chromosomes[i] = chromosomes[i][3:]
     return chromosomes
 
 class ReadCounter(object):
