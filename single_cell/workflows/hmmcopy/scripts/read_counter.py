@@ -11,6 +11,11 @@ import numpy as np
 import pandas as pd
 import pysam
 
+def correct_chromosome_names(chromosomes):
+    if chromosomes[0] == "chr1":
+        for chrom in chromosomes:
+            chrom = chrom[3:]
+    return chromosomes
 
 class ReadCounter(object):
     """
@@ -30,7 +35,7 @@ class ReadCounter(object):
         self.window_size = window_size
 
         if chromosomes:
-            self.chromosomes = chromosomes
+            self.chromosomes = correct_chromosome_names(chromosomes)
         else:
             self.chromosomes = self.__get_chr_names()
 
