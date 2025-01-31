@@ -332,7 +332,7 @@ class PlotMetrics(object):
 
     def plot_metric_heatmap(
             self, df, metric, title, pdf, plot_title,
-            size=72, center=None, cmap=None):
+            size=12, center=None, cmap=None):
 
         if metric not in df.columns.values:
             logging.getLogger("single_cell.plot_metrics").warn(

@@ -20,10 +20,12 @@ def get_reference_data(reference, rootdir):
         fastqscreen_training_data = os.path.join(rootdir, 'human/fastqscreen_training_data.csv')
         gc_wig_file = {
             500000: os.path.join(rootdir, 'human/GRCh37-lite.gc.ws_500000.wig'),
+            100000: os.path.join(rootdir, 'human/GRCh37-lite.gc.ws_100000.wig'),
             1000: os.path.join(rootdir, 'human/GRCh37-lite.gc.ws_1000.wig'),
         }
         map_wig_file = {
             500000: os.path.join(rootdir, 'human/GRCh37-lite.map.ws_125_to_500000.wig'),
+            100000: os.path.join(rootdir, 'human/GRCh37-lite.map.ws_125_to_100000.wig'),
             1000: os.path.join(rootdir, 'human/GRCh37-lite.map.ws_1000.wig'),
         }
         exclude_list = os.path.join(rootdir, 'human/repeats.satellite.regions')
