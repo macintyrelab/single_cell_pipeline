@@ -37,7 +37,7 @@ class ReadCounter(object):
         if chromosomes:
             self.chromosomes = correct_chromosome_names(chromosomes)
         else:
-            self.chromosomes = self.__get_chr_names()
+            self.chromosomes = correct_chromosome_names(self.__get_chr_names())
 
         self.bam = self.__get_bam_reader()
         self.chr_lengths = self.__get_chr_lengths()
