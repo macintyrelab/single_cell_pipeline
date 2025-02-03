@@ -53,6 +53,31 @@ def get_reference_data(reference, rootdir):
                 'db': 'GRCh37.75'
             }
         }
+    elif reference == "hg19":
+        vep = {
+            'reference_dir': rootdir,
+            'reference_fasta': None,
+            'reference_filter_vcf': None
+        }
+        classifier_training_data = None
+        fastqscreen_training_data = None
+        gc_wig_file = {
+            100000: os.path.join(rootdir, 'hg19.fa.gc_100000.wig')
+        }
+        map_wig_file = {
+            100000: os.path.join(rootdir, 'hg19.fa.map_100000.wig')
+        }
+        exclude_list = None# os.path.join(rootdir, 'human/repeats.satellite.regions')
+        ref_genome = os.path.join(rootdir, 'hg19.fa')
+        gc_windows = None
+        copynumber_ref_data = rootdir
+        chrom_info_filename = None
+        chromosomes = get_chromosomes('grch37')
+        destruct_ref_data = None
+        destruct_gtf_file = None
+        qc_gtf_file = None
+        reference_gc_qc = None
+        databases = None
 
     elif reference == 'mm10':
         vep = {
