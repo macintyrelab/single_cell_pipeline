@@ -60,11 +60,11 @@ def get_reference_data(reference, rootdir):
         classifier_training_data = None
         fastqscreen_training_data = None
         gc_wig_file = {
-            100000: os.path.join(rootdir, 'hg19.fa.gc_100000.wig'),
+            100000: os.path.join(rootdir, 'mondrian', 'hg19.fa.gc_100000.wig'),
             1000: '/data/not/available',
         }
         map_wig_file = {
-            100000: os.path.join(rootdir, 'hg19.fa.map_100000.wig'),
+            100000: os.path.join(rootdir, 'mondrian', 'hg19.fa.map_100000.wig'),
             1000: '/data/not/available',
         }
         exclude_list = None# os.path.join(rootdir, 'human/repeats.satellite.regions')
@@ -72,24 +72,24 @@ def get_reference_data(reference, rootdir):
         gc_windows = None
         copynumber_ref_data = rootdir
         chrom_info_filename = None
-        chromosomes = get_chromosomes('grch37')
+        chromosomes = get_chromosomes('hg19')
         destruct_ref_data = None
         destruct_gtf_file = None
         qc_gtf_file = None
         reference_gc_qc = None
         databases = {
             'mappability': {
-                'local_path': os.path.join(rootdir, 'hg19.fa.bw'),
+                'local_path': os.path.join(rootdir, 'mondrian', 'hg19.fa.bw'),
             },
             'cosmic': {
-                'local_path': os.path.join(rootdir, 'human/cosmic_v75.vcf.gz'),
+                'local_path': '/data/not/available',
             },
             'dbsnp': {
-                'local_path': os.path.join(rootdir, 'human/dbsnp_b146_GRCh37p13.vcf.gz'),
+                'local_path': '/data/not/available',
             },
             'snpeff': {
-                'local_path': os.path.join(rootdir, 'snpeff/data/'),
-                'db': 'GRCh37.75'
+                'local_path': '/data/not/available',
+                'db': 'hg19'
             }
         }
 
@@ -159,6 +159,8 @@ def get_cluster_reference_data(refdir, reference):
 def get_chromosomes(reference):
     if reference == 'grch37':
         return [str(val) for val in range(1, 23)] + ['X', 'Y']
+    elif reference == 'hg19':
+        return ["chr"+str(val) for val in range(1, 20)] + ['chrX', 'chrY']
     elif reference == 'mm10':
         return [str(val) for val in range(1, 20)] + ['X', 'Y']
     else:

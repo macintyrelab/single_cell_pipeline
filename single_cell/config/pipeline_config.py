@@ -280,7 +280,7 @@ def get_copy_number_calling_params(reference_dir, reference, binsize):
         'titan_params': {
             "normal_contamination": [0.2, 0.4, 0.6, 0.8],
             'num_clusters': [1, 2],
-            'ploidy': [1, 2, 3, 4],
+            'ploidy': [1, 2, 3, 4, 5, 6],
             'chrom_info_filename': referencedata['chrom_info_filename'],
             'window_size': binsize,
             'gc_wig': referencedata['gc_wig_file'][binsize],
