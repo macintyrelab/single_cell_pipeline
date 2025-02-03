@@ -77,7 +77,21 @@ def get_reference_data(reference, rootdir):
         destruct_gtf_file = None
         qc_gtf_file = None
         reference_gc_qc = None
-        databases = None
+        databases = {
+            'mappability': {
+                'local_path': os.path.join(rootdir, 'hg19.fa.bw'),
+            },
+            'cosmic': {
+                'local_path': os.path.join(rootdir, 'human/cosmic_v75.vcf.gz'),
+            },
+            'dbsnp': {
+                'local_path': os.path.join(rootdir, 'human/dbsnp_b146_GRCh37p13.vcf.gz'),
+            },
+            'snpeff': {
+                'local_path': os.path.join(rootdir, 'snpeff/data/'),
+                'db': 'GRCh37.75'
+            }
+        }
 
     elif reference == 'mm10':
         vep = {
