@@ -11,14 +11,6 @@ import numpy as np
 import pandas as pd
 import pysam
 
-def ref_to_bam_name(chromosome):
-    return "chr"+str(chromosome)
-def ref_to_bam_names(chromosomes):
-    return tuple([ref_to_bam_name(chromosome) for chromosome in chromosomes])
-def bam_to_ref_name(chromosome):
-    return chromosome[3:]
-def bam_to_ref_names(chromosomes):
-    return tuple([bam_to_ref_name(chromosome) for chromosome in chromosomes])
 
 class ReadCounter(object):
     """
@@ -86,7 +78,7 @@ class ReadCounter(object):
         :rtype dictionary
         """
 
-        names = bam_to_ref_names(self.bam.references)
+        names = self.bam.references
         lengths = self.bam.lengths
         return {name: length for name, length in zip(names, lengths)}
 
@@ -101,7 +93,7 @@ class ReadCounter(object):
         :returns list of chromosome names
         :rtype list
         """
-        return bam_to_ref_names(self.bam.references)
+        return self.bam.references
 
     def __fetch(self, chrom, start, end):
         """returns iterator over reads in the specified region
@@ -110,7 +102,7 @@ class ReadCounter(object):
         :param end: bin end pos (int)
         :returns iterator over reads
         """
-        return self.bam.fetch(ref_to_bam_name(chrom), start, end)
+        return self.bam.fetch(chrom, start, end)
 
     def filter(self, pileupobj, chrom_excluded=None):
         """remove low mapping quality reads and duplicates

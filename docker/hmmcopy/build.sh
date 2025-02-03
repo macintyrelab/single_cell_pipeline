@@ -12,7 +12,7 @@ cat dockerfile_template \
  | sed "s/{git_commit}/$COMMIT/g" \
  > dockerfile
 
-docker build -t mtorreslworks/single_cell_pipeline_hmmcopy:v0.8.14.mod . --no-cache
+docker build -t $REGISTRY/$ORG/single_cell_pipeline_hmmcopy:$TAG . --no-cache
 
-docker push mtorreslworks/single_cell_pipeline_hmmcopy:v0.8.14.mod
+docker push $REGISTRY/$ORG/single_cell_pipeline_hmmcopy:$TAG
 
