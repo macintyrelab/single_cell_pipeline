@@ -60,11 +60,11 @@ def get_reference_data(reference, rootdir):
         classifier_training_data = None
         fastqscreen_training_data = None
         gc_wig_file = {
-            100000: os.path.join(rootdir, 'mondrian', 'hg19.fa.gc_100000.wig'),
+            100000: os.path.join(rootdir, 'mondrian/hg19.fa.gc_100000.wig'),
             1000: '/data/not/available',
         }
         map_wig_file = {
-            100000: os.path.join(rootdir, 'mondrian', 'hg19.fa.map_100000.wig'),
+            100000: os.path.join(rootdir, 'mondrian/hg19.fa.map_100000.wig'),
             1000: '/data/not/available',
         }
         exclude_list = None# os.path.join(rootdir, 'human/repeats.satellite.regions')
@@ -79,7 +79,7 @@ def get_reference_data(reference, rootdir):
         reference_gc_qc = None
         databases = {
             'mappability': {
-                'local_path': os.path.join(rootdir, 'mondrian', 'hg19.fa.bw'),
+                'local_path': os.path.join(rootdir, 'mondrian/hg19.fa.bw'),
             },
             'cosmic': {
                 'local_path': '/data/not/available',
