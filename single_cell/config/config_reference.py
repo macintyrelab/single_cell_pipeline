@@ -67,7 +67,7 @@ def get_reference_data(reference, rootdir):
             100000: os.path.join(rootdir, 'mondrian/hg19.fa.map_100000.wig'),
             1000: '/data/not/available',
         }
-        exclude_list = None# os.path.join(rootdir, 'human/repeats.satellite.regions')
+        exclude_list = os.path.join(rootdir, 'mondrian/repeats.satellite.regions')
         ref_genome = os.path.join(rootdir, 'hg19.fa')
         gc_windows = None
         copynumber_ref_data = rootdir
